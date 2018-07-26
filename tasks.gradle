@@ -1,0 +1,36 @@
+def versionName
+def versionCode
+
+task retrieveVersionName() {
+    def hashStdOut = new ByteArrayOutputStream()
+    exec{
+        commandLine './retrieveVersionName.sh'
+        standardOutput = hashStdOut
+    }
+    versionName = hashStdOut.toString().trim()
+}
+
+task retrieveVersionCode(dependsOn: retrieveVersionName) {
+    def hashStdOut = new ByteArrayOutputStream()
+    exec{
+        commandLine './retrieveVersionCode.sh'
+        standardOutput = hashStdOut
+    }
+    versionCode = hashStdOut.toString().trim()
+}
+
+
+task writeVersionDetailsToProperty(dependsOn: retrieveVersionCode) {
+    def props = new Properties()
+    def writer = new FileWriter(file('src/main/resources/config.properties'))
+    try {
+        props.setProperty('VERSION_NAME', versionName)
+        props.setProperty('VERSION_CODE', versionCode)
+        props.setProperty('SERVICE_ACCOUNT_EMAIL', System.getenv("SEKTOR_SERVICE_ACCOUNT_EMAIL"))
+        props.setProperty('TRACK', System.getenv("SEKTOR_ANDROID_TRACK"))
+        props.store(writer, null)
+        writer.flush()
+    } finally {
+        writer.close()
+    }
+}

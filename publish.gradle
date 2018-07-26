@@ -1,0 +1,23 @@
+apply plugin: 'maven-publish'
+apply from: 'aws-credentials.gradle'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) { publication ->
+            groupId 'lt.boldadmin.sektor'
+            artifactId = 'android-publisher'
+            version '1.3.0'
+            from components.java
+
+            repositories {
+                maven {
+                    url 's3://repository.boldadmin.com/releases'
+                    credentials(AwsCredentials) {
+                        accessKey = awsCredentials.AWSAccessKeyId
+                        secretKey = awsCredentials.AWSSecretKey
+                    }
+                }
+            }
+        }
+    }
+}

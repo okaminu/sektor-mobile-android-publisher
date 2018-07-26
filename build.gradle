@@ -1,0 +1,25 @@
+buildscript {
+    ext.kotlin_version = '1.2.41'
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "1.2.41"
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+apply from: 'tasks.gradle'
+apply from: 'dependencies.gradle'
+apply from: 'publish.gradle'
+apply from: 'jacoco.gradle'
+
+mainClassName = 'lt.boldadmin.sektor.mobile.android.publisher.ApplicationKt'
+
+defaultTasks 'run'
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

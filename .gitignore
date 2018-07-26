@@ -1,0 +1,16 @@
+# IntelliJ project files
+*.idea
+*.iml
+out
+gen
+
+# OS specific
+*.DS_Store
+
+# Gradle
+.gradle
+build
+local.properties
+gradle.properties
+
+config.properties

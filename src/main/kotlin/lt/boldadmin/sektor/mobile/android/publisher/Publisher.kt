@@ -9,4 +9,5 @@ class Publisher(private val editsService: EditsService = EditsService()) {
         editsService.updateTrack(editId)
         editsService.commit(editId)
     }
+
 }

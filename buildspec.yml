@@ -1,0 +1,12 @@
+version: 0.1
+
+phases:
+  build:
+    commands:
+      - ls
+      - java -jar build/libs/sektor-mobile-android-publisher-all.jar
+      - ./gradlew build publish
+artifacts:
+  files:
+    - 'build/libs/sektor-mobile-android-publisher-all.jar'
+  discard-paths: yes

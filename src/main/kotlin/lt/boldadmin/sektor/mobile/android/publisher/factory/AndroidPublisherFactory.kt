@@ -9,11 +9,10 @@ class AndroidPublisherFactory(
     private val builder: AndroidPublisherBuilder = AndroidPublisherBuilder()
 ) {
 
-
     fun create(): AndroidPublisher =
         builder
-            .createBuilder()
-            .setApplicationName(propertyLoader.load("publisher.properties")["APPLICATION_NAME"].toString())
-            .build()
+            .createBuilder().apply {
+                applicationName = propertyLoader.load("publisher.properties")["APPLICATION_NAME"].toString()
+            }.build()
 
 }

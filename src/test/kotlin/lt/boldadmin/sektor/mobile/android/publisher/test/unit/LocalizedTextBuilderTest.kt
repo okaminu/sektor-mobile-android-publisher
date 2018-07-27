@@ -13,7 +13,7 @@ import java.util.*
 
 
 @RunWith(MockitoJUnitRunner::class)
-class LocalizedTextBuilderTest{
+class LocalizedTextBuilderTest {
 
     @Mock
     private lateinit var propertyLoaderMock: PropertyLoader
@@ -34,7 +34,6 @@ class LocalizedTextBuilderTest{
         verify(propertyLoaderMock, times(2)).load(any())
         verify(localizedTextMock).language = any()
         verify(localizedTextMock).text = any()
-
-
     }
+
 }

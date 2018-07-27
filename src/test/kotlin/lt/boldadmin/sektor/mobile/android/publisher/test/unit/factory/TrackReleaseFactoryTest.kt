@@ -13,7 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-class TrackReleaseFactoryTest{
+class TrackReleaseFactoryTest {
 
     @Mock
     private lateinit var propertyLoaderMock: PropertyLoader
@@ -25,7 +25,7 @@ class TrackReleaseFactoryTest{
     private lateinit var textBuilderMock: LocalizedTextBuilder
 
     @Test
-    fun `Sets listing update details`() {
+    fun `Sets store listing update details`() {
         val trackMock = mock<TrackRelease>()
         val propertiesMock = mock<Properties>()
         doReturn(propertiesMock).`when`(propertyLoaderMock).load(any())
@@ -48,4 +48,5 @@ class TrackReleaseFactoryTest{
     companion object {
         const val versionCode = "5"
     }
+
 }

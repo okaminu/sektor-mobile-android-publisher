@@ -21,10 +21,9 @@ class CredentialsFactoryTest {
     private lateinit var propertyLoaderMock: PropertyLoader
 
     @Test
-    fun `Creates google service credentials`(){
+    fun `Creates Google services credentials`() {
         val googleCredentialMock = mock<GoogleCredential>()
-        val propertiesMock = mock<Properties>()
-        doReturn(propertiesMock).`when`(propertyLoaderMock).load(any())
+        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
         doReturn(builderMock).`when`(builderMock).transport = any()
         doReturn(builderMock).`when`(builderMock).jsonFactory = any()
         doReturn(builderMock).`when`(builderMock).serviceAccountId = any()

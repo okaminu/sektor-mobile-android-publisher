@@ -10,7 +10,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class PublisherTest{
+class PublisherTest {
 
     @Mock
     private lateinit var editsServiceMock: EditsService
@@ -32,4 +32,5 @@ class PublisherTest{
     companion object {
         const val editId = "editId"
     }
+
 }

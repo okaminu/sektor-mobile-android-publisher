@@ -15,7 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-class AndroidPublisherFactoryTest{
+class AndroidPublisherFactoryTest {
 
     @Mock
     private lateinit var propertyLoaderMock: PropertyLoader
@@ -32,14 +32,12 @@ class AndroidPublisherFactoryTest{
         doReturn(builderMock).`when`(builderMock).applicationName = any()
         doReturn(publisherMock).`when`(builderMock).build()
 
-        val publisher = AndroidPublisherFactory(
-            propertyLoaderMock,
-            publisherBuilderMock
-        ).create()
+        val publisher = AndroidPublisherFactory(propertyLoaderMock, publisherBuilderMock).create()
 
         assertEquals(publisherMock, publisher)
         verify(publisherBuilderMock).createBuilder()
         verify(builderMock).applicationName = any()
         verify(builderMock).build()
     }
+
 }

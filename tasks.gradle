@@ -20,7 +20,7 @@ task retrieveVersionCode(dependsOn: retrieveVersionName) {
 }
 
 
-task writeVersionDetailsToProperty(dependsOn: retrieveVersionCode) {
+task writeDetailsToProperty(dependsOn: retrieveVersionCode) {
     def props = new Properties()
     def writer = new FileWriter(file('src/main/resources/config.properties'))
     try {

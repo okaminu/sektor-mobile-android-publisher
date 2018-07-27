@@ -12,5 +12,4 @@ class LocalizedTextBuilder(
             .setLanguage(propertyLoader.load("listing.properties")["LANGUAGE"].toString())
             .setText(propertyLoader.load("listing.properties")["UPDATE_TEXT"].toString())
 
-
 }

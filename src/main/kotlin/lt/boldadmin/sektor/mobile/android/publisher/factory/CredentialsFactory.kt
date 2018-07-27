@@ -10,15 +10,15 @@ class CredentialsFactory(
     private val propertyLoader: PropertyLoader = PropertyLoader()
 ) {
 
-    fun createCredentials(): GoogleCredential {
-        return builder
-            .setTransport(createHttpTransport())
-            .setJsonFactory(createJacksonInstance())
-            .setServiceAccountId(propertyLoader.load("config.properties")["SERVICE_ACCOUNT_EMAIL"].toString())
-            .setServiceAccountScopes(setOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
+    fun createCredentials(): GoogleCredential =
+        builder.apply {
+            transport = createHttpTransport()
+            jsonFactory = createJacksonInstance()
+            serviceAccountId = propertyLoader.load("config.properties")["SERVICE_ACCOUNT_EMAIL"].toString()
+            serviceAccountScopes = setOf(AndroidPublisherScopes.ANDROIDPUBLISHER)
+        }
             .setServiceAccountPrivateKeyFromP12File(
                 File(propertyLoader.load("publisher.properties")["SRC_RESOURCES_KEY_P12"].toString())
-            )
-            .build()
-    }
+            ).build()
+
 }

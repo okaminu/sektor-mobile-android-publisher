@@ -10,7 +10,8 @@ class AndroidPublisherBuilder(private val credentialsFactory: CredentialsFactory
     fun createBuilder() =
         AndroidPublisher.Builder(
             createHttpTransport(),
-            createJacksonInstance(), credentialsFactory.createCredentials()
+            createJacksonInstance(),
+            credentialsFactory.createCredentials()
         )
 
 }

@@ -10,4 +10,5 @@ class PropertyLoaderTest {
     fun load() {
         assertNotNull(PropertyLoader().load("config.properties"))
     }
+
 }

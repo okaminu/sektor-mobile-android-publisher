@@ -4,7 +4,6 @@ phases:
   build:
     commands:
       - ls
-      - java -jar build/libs/sektor-mobile-android-publisher-all.jar
       - ./gradlew build publish
 artifacts:
   files:

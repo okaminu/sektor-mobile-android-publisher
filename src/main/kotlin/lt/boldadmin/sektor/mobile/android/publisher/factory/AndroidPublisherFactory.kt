@@ -11,7 +11,7 @@ class AndroidPublisherFactory(
 
     fun create(): AndroidPublisher =
         builder
-            .createBuilder().apply {
+            .create().apply {
                 applicationName = propertyLoader.load("publisher.properties")["APPLICATION_NAME"].toString()
             }.build()
 

@@ -5,6 +5,7 @@ import com.google.api.services.androidpublisher.model.AppEdit
 import com.google.api.services.androidpublisher.model.Track
 import lt.boldadmin.sektor.mobile.android.publisher.factory.AndroidPublisherFactory
 import lt.boldadmin.sektor.mobile.android.publisher.factory.TrackReleaseFactory
+import java.util.logging.Logger
 
 class EditsService(
     private val edits: AndroidPublisher.Edits = AndroidPublisherFactory().create().edits(),
@@ -29,7 +30,7 @@ class EditsService(
                 apkLoader.loadApk()
             )
             .execute()
-        println("Apk successfully uploaded")
+        log.info("Apk successfully uploaded to Edit $editId")
     }
 
     fun updateTrack(editId: String) {
@@ -42,13 +43,17 @@ class EditsService(
                 track.setReleases(listOf(trackReleaseFactory.create()))
             )
             .execute()
-        println("Track successfully updated")
+        log.info("Track $editId successfully updated")
     }
 
     fun commit(editId: String) {
         edits
             .commit(propertyLoader.load("publisher.properties")["PACKAGE_NAME"].toString(), editId)
             .execute()
-        println("App eddit $editId successfully committed")
+        log.info("App Edit $editId successfully committed")
+    }
+
+    companion object {
+        val log: Logger = Logger.getLogger(EditsService::class.java.name)
     }
 }

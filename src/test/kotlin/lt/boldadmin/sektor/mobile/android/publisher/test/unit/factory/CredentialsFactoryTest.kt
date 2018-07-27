@@ -15,35 +15,32 @@ import java.util.*
 class CredentialsFactoryTest {
 
     @Mock
-    private lateinit var builderMock: GoogleCredential.Builder
+    private lateinit var builderSpy: GoogleCredential.Builder
 
     @Mock
-    private lateinit var propertyLoaderMock: PropertyLoader
+    private lateinit var propertyLoaderStub: PropertyLoader
 
     @Test
     fun `Creates Google services credentials`() {
-        val googleCredentialMock = mock<GoogleCredential>()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
-        doReturn(builderMock).`when`(builderMock).transport = any()
-        doReturn(builderMock).`when`(builderMock).jsonFactory = any()
-        doReturn(builderMock).`when`(builderMock).serviceAccountId = any()
-        doReturn(builderMock).`when`(builderMock).serviceAccountScopes = any()
-        doReturn(builderMock).`when`(builderMock).setServiceAccountPrivateKeyFromP12File(any())
-        doReturn(googleCredentialMock).`when`(builderMock).build()
+        val googleCredentialDummy = mock<GoogleCredential>()
+        doReturn(mock<Properties>()).`when`(propertyLoaderStub).load(any())
+        doReturn(builderSpy).`when`(builderSpy).transport = any()
+        doReturn(builderSpy).`when`(builderSpy).jsonFactory = any()
+        doReturn(builderSpy).`when`(builderSpy).serviceAccountId = any()
+        doReturn(builderSpy).`when`(builderSpy).serviceAccountScopes = any()
+        doReturn(builderSpy).`when`(builderSpy).setServiceAccountPrivateKeyFromP12File(any())
+        doReturn(googleCredentialDummy).`when`(builderSpy).build()
 
-        val edits = CredentialsFactory(
-            builderMock,
-            propertyLoaderMock
-        ).createCredentials()
+        val edits = CredentialsFactory(builderSpy, propertyLoaderStub).createCredentials()
 
-        assertEquals(googleCredentialMock, edits)
-        verify(propertyLoaderMock, times(2)).load(any())
-        verify(builderMock).transport = any()
-        verify(builderMock).jsonFactory = any()
-        verify(builderMock).serviceAccountId = any()
-        verify(builderMock).serviceAccountScopes = any()
-        verify(builderMock).setServiceAccountPrivateKeyFromP12File(any())
-        verify(builderMock).build()
+        assertEquals(googleCredentialDummy, edits)
+        verify(propertyLoaderStub, times(2)).load(any())
+        verify(builderSpy).transport = any()
+        verify(builderSpy).jsonFactory = any()
+        verify(builderSpy).serviceAccountId = any()
+        verify(builderSpy).serviceAccountScopes = any()
+        verify(builderSpy).setServiceAccountPrivateKeyFromP12File(any())
+        verify(builderSpy).build()
     }
 
 }

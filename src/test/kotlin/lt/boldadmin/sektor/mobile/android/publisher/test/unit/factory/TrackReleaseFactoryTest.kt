@@ -2,7 +2,7 @@ package lt.boldadmin.sektor.mobile.android.publisher.test.unit.factory
 
 import com.google.api.services.androidpublisher.model.TrackRelease
 import com.nhaarman.mockito_kotlin.*
-import lt.boldadmin.sektor.mobile.android.publisher.LocalizedTextBuilder
+import lt.boldadmin.sektor.mobile.android.publisher.factory.LocalizedTextFactory
 import lt.boldadmin.sektor.mobile.android.publisher.PropertyLoader
 import lt.boldadmin.sektor.mobile.android.publisher.factory.TrackReleaseFactory
 import org.junit.Assert.assertEquals
@@ -16,33 +16,35 @@ import java.util.*
 class TrackReleaseFactoryTest {
 
     @Mock
-    private lateinit var propertyLoaderMock: PropertyLoader
+    private lateinit var propertyLoaderSpy: PropertyLoader
 
     @Mock
-    private lateinit var trackRelease: TrackRelease
+    private lateinit var trackReleaseSpy: TrackRelease
 
     @Mock
-    private lateinit var textBuilderMock: LocalizedTextBuilder
+    private lateinit var textFactorySpy: LocalizedTextFactory
 
     @Test
-    fun `Sets store listing update details`() {
-        val trackMock = mock<TrackRelease>()
-        val propertiesMock = mock<Properties>()
-        doReturn(propertiesMock).`when`(propertyLoaderMock).load(any())
-        doReturn(versionCode).`when`(propertiesMock)[any()]
-        doReturn(trackRelease).`when`(trackRelease).name = any()
-        doReturn(trackRelease).`when`(trackRelease).versionCodes = any()
-        doReturn(trackRelease).`when`(trackRelease).status = any()
-        doReturn(trackMock).`when`(trackRelease).releaseNotes = any()
+    fun `Sets store listing details`() {
+        val trackDummy = mock<TrackRelease>()
+        val propertiesSpy = mock<Properties>()
+        doReturn(propertiesSpy).`when`(propertyLoaderSpy).load(any())
+        doReturn(versionCode).`when`(propertiesSpy)[any()]
+        doReturn(trackReleaseSpy).`when`(trackReleaseSpy).name = any()
+        doReturn(trackReleaseSpy).`when`(trackReleaseSpy).versionCodes = any()
+        doReturn(trackReleaseSpy).`when`(trackReleaseSpy).status = any()
+        doReturn(trackDummy).`when`(trackReleaseSpy).releaseNotes = any()
 
-        val track = TrackReleaseFactory(
-            trackRelease,
-            propertyLoaderMock,
-            textBuilderMock
-        ).create()
+        val track = TrackReleaseFactory(trackReleaseSpy, propertyLoaderSpy, textFactorySpy).create()
 
-        assertEquals(trackMock, track)
-        verify(propertyLoaderMock, times(2)).load(any())
+        assertEquals(trackDummy, track)
+        verify(propertyLoaderSpy, times(2)).load(any())
+        verify(propertiesSpy, times(2))[any()]
+        verify(trackReleaseSpy).name = any()
+        verify(trackReleaseSpy).versionCodes = any()
+        verify(trackReleaseSpy).status = any()
+        verify(trackReleaseSpy).releaseNotes = any()
+        verify(textFactorySpy).create()
     }
 
     companion object {

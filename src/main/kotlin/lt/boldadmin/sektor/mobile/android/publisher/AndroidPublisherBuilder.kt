@@ -7,7 +7,7 @@ import lt.boldadmin.sektor.mobile.android.publisher.factory.createJacksonInstanc
 
 class AndroidPublisherBuilder(private val credentialsFactory: CredentialsFactory = CredentialsFactory()) {
 
-    fun createBuilder() =
+    fun create() =
         AndroidPublisher.Builder(
             createHttpTransport(),
             createJacksonInstance(),

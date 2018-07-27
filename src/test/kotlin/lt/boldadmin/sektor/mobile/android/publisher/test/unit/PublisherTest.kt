@@ -13,20 +13,20 @@ import org.mockito.junit.MockitoJUnitRunner
 class PublisherTest {
 
     @Mock
-    private lateinit var editsServiceMock: EditsService
+    private lateinit var editsServiceSpy: EditsService
 
     @Test
     fun `Publishes app to play store`() {
-        val appEditMock = mock<AppEdit>()
-        doReturn(appEditMock).`when`(editsServiceMock).createNewEdit()
-        doReturn(editId).`when`(appEditMock).id
+        val appEditStub = mock<AppEdit>()
+        doReturn(appEditStub).`when`(editsServiceSpy).createNewEdit()
+        doReturn(editId).`when`(appEditStub).id
 
-        Publisher(editsServiceMock).publish()
+        Publisher(editsServiceSpy).publish()
 
-        verify(editsServiceMock).createNewEdit()
-        verify(editsServiceMock).uploadApk(editId)
-        verify(editsServiceMock).updateTrack(editId)
-        verify(editsServiceMock).commit(editId)
+        verify(editsServiceSpy).createNewEdit()
+        verify(editsServiceSpy).uploadApk(editId)
+        verify(editsServiceSpy).updateTrack(editId)
+        verify(editsServiceSpy).commit(editId)
     }
 
     companion object {

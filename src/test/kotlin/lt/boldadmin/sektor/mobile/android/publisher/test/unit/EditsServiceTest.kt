@@ -25,97 +25,91 @@ import java.util.*
 @RunWith(MockitoJUnitRunner::class)
 class EditsServiceTest {
 
-    @Mock
-    private lateinit var editsMock: AndroidPublisher.Edits
+    @Mock private lateinit var editsMockSpy: AndroidPublisher.Edits
 
-    @Mock
-    private lateinit var propertyLoaderMock: PropertyLoader
+    @Mock private lateinit var propertyLoaderSpy: PropertyLoader
 
-    @Mock
-    private lateinit var apkLoaderMock: ApkLoader
+    @Mock private lateinit var apkLoaderSpy: ApkLoader
 
-    @Mock
-    private lateinit var trackMock: Track
+    @Mock private lateinit var trackSpy: Track
 
-    @Mock
-    private lateinit var trackFactoryMock: TrackReleaseFactory
+    @Mock private lateinit var trackFactorySpy: TrackReleaseFactory
 
     private lateinit var editsService: EditsService
 
-
     @Before
     fun setUp() {
-        editsService = EditsService(editsMock, propertyLoaderMock, apkLoaderMock, trackMock, trackFactoryMock)
+        editsService = EditsService(editsMockSpy, propertyLoaderSpy, apkLoaderSpy, trackSpy, trackFactorySpy)
     }
 
     @Test
-    fun `Creates a new edit`() {
-        val insertMock = mock<AndroidPublisher.Edits.Insert>()
-        val editMock = mock<AppEdit>()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
-        doReturn(insertMock).`when`(editsMock).insert(any(), eq(null))
-        doReturn(editMock).`when`(insertMock).execute()
+    fun `Creates a new Edit`() {
+        val insertSpy = mock<AndroidPublisher.Edits.Insert>()
+        val editDummy = mock<AppEdit>()
+        doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
+        doReturn(insertSpy).`when`(editsMockSpy).insert(any(), eq(null))
+        doReturn(editDummy).`when`(insertSpy).execute()
 
         val newEdit = editsService.createNewEdit()
 
-        assertEquals(editMock, newEdit)
-        verify(propertyLoaderMock).load(any())
-        verify(editsMock).insert(any(), eq(null))
-        verify(insertMock).execute()
+        assertEquals(editDummy, newEdit)
+        verify(propertyLoaderSpy).load(any())
+        verify(editsMockSpy).insert(any(), eq(null))
+        verify(insertSpy).execute()
     }
 
     @Test
     fun `Uploads apk to Edit`() {
-        val apksMock = mock<AndroidPublisher.Edits.Apks>()
-        val uploadMock = mock<AndroidPublisher.Edits.Apks.Upload>()
-        doReturn(apksMock).`when`(editsMock).apks()
-        doReturn(uploadMock).`when`(apksMock).upload(any(), eq(editId), any())
-        doReturn(mock<FileContent>()).`when`(apkLoaderMock).loadApk()
-        doReturn(mock<Apk>()).`when`(uploadMock).execute()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
+        val apksSpy = mock<AndroidPublisher.Edits.Apks>()
+        val uploadSpy = mock<AndroidPublisher.Edits.Apks.Upload>()
+        doReturn(apksSpy).`when`(editsMockSpy).apks()
+        doReturn(uploadSpy).`when`(apksSpy).upload(any(), eq(editId), any())
+        doReturn(mock<FileContent>()).`when`(apkLoaderSpy).loadApk()
+        doReturn(mock<Apk>()).`when`(uploadSpy).execute()
+        doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
 
         editsService.uploadApk(editId)
 
-        verify(editsMock).apks()
-        verify(apksMock).upload(any(), eq(editId), any())
-        verify(apkLoaderMock).loadApk()
-        verify(uploadMock).execute()
-        verify(propertyLoaderMock).load(any())
+        verify(editsMockSpy).apks()
+        verify(apksSpy).upload(any(), eq(editId), any())
+        verify(apkLoaderSpy).loadApk()
+        verify(uploadSpy).execute()
+        verify(propertyLoaderSpy).load(any())
     }
 
     @Test
     fun `Updates Track info`() {
-        val tracksMock = mock<Tracks>()
-        val updateMock = mock<Update>()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
-        doReturn(tracksMock).`when`(editsMock).tracks()
-        doReturn(updateMock).`when`(tracksMock).update(any(), eq(editId), any(), any())
-        doReturn(mock<Track>()).`when`(updateMock).execute()
-        doReturn(mock<TrackRelease>()).`when`(trackFactoryMock).create()
-        doReturn(mock<Track>()).`when`(trackMock).releases = any()
+        val tracksSpy = mock<Tracks>()
+        val updateSpy = mock<Update>()
+        doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
+        doReturn(tracksSpy).`when`(editsMockSpy).tracks()
+        doReturn(updateSpy).`when`(tracksSpy).update(any(), eq(editId), any(), any())
+        doReturn(mock<Track>()).`when`(updateSpy).execute()
+        doReturn(mock<TrackRelease>()).`when`(trackFactorySpy).create()
+        doReturn(mock<Track>()).`when`(trackSpy).releases = any()
 
         editsService.updateTrack(editId)
 
-        verify(propertyLoaderMock, times(2)).load(any())
-        verify(editsMock).tracks()
-        verify(tracksMock).update(any(), eq(editId), any(), any())
-        verify(trackFactoryMock).create()
-        verify(trackMock).releases = any()
-        verify(updateMock).execute()
+        verify(propertyLoaderSpy, times(2)).load(any())
+        verify(editsMockSpy).tracks()
+        verify(tracksSpy).update(any(), eq(editId), any(), any())
+        verify(trackFactorySpy).create()
+        verify(trackSpy).releases = any()
+        verify(updateSpy).execute()
     }
 
     @Test
     fun `Commits Track changes`() {
-        val commitMock = mock<Commit>()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
-        doReturn(commitMock).`when`(editsMock).commit(any(), eq(editId))
-        doReturn(mock<AppEdit>()).`when`(commitMock).execute()
+        val commitSpy = mock<Commit>()
+        doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
+        doReturn(commitSpy).`when`(editsMockSpy).commit(any(), eq(editId))
+        doReturn(mock<AppEdit>()).`when`(commitSpy).execute()
 
         editsService.commit(editId)
 
-        verify(propertyLoaderMock).load(any())
-        verify(editsMock).commit(any(), eq(editId))
-        verify(commitMock).execute()
+        verify(propertyLoaderSpy).load(any())
+        verify(editsMockSpy).commit(any(), eq(editId))
+        verify(commitSpy).execute()
     }
 
     companion object {

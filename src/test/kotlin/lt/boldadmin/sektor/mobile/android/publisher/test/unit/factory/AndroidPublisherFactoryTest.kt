@@ -18,26 +18,27 @@ import java.util.*
 class AndroidPublisherFactoryTest {
 
     @Mock
-    private lateinit var propertyLoaderMock: PropertyLoader
+    private lateinit var propertyLoaderSpy: PropertyLoader
 
     @Mock
-    private lateinit var publisherBuilderMock: AndroidPublisherBuilder
+    private lateinit var publisherBuilderSpy: AndroidPublisherBuilder
 
     @Test
-    fun `Creates AndroidPublisher`() {
-        val builderMock = mock<AndroidPublisher.Builder>()
-        val publisherMock = mock<AndroidPublisher>()
-        doReturn(mock<Properties>()).`when`(propertyLoaderMock).load(any())
-        doReturn(builderMock).`when`(publisherBuilderMock).createBuilder()
-        doReturn(builderMock).`when`(builderMock).applicationName = any()
-        doReturn(publisherMock).`when`(builderMock).build()
+    fun `Allows access to Google Play accounts`() {
+        val builderSpy = mock<AndroidPublisher.Builder>()
+        val publisherDummy = mock<AndroidPublisher>()
+        doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
+        doReturn(builderSpy).`when`(publisherBuilderSpy).create()
+        doReturn(builderSpy).`when`(builderSpy).applicationName = any()
+        doReturn(publisherDummy).`when`(builderSpy).build()
 
-        val publisher = AndroidPublisherFactory(propertyLoaderMock, publisherBuilderMock).create()
+        val publisher = AndroidPublisherFactory(propertyLoaderSpy, publisherBuilderSpy).create()
 
-        assertEquals(publisherMock, publisher)
-        verify(publisherBuilderMock).createBuilder()
-        verify(builderMock).applicationName = any()
-        verify(builderMock).build()
+        assertEquals(publisherDummy, publisher)
+        verify(propertyLoaderSpy).load(any())
+        verify(publisherBuilderSpy).create()
+        verify(builderSpy).applicationName = any()
+        verify(builderSpy).build()
     }
 
 }

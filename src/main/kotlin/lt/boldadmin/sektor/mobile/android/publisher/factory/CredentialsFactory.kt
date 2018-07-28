@@ -10,7 +10,7 @@ class CredentialsFactory(
     private val propertyLoader: PropertyLoader = PropertyLoader()
 ) {
 
-    fun createCredentials(): GoogleCredential =
+    fun create(): GoogleCredential =
         builder.apply {
             transport = createHttpTransport()
             jsonFactory = createJacksonInstance()

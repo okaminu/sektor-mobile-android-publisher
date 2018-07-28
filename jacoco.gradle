@@ -4,7 +4,7 @@ jacoco {
 }
 
 def fileFilter = ['**/*$*$*.*', '**/ApplicationKt*', '**/HttpTransportFactoryKt*', '**/JacksonFactoryKt*',
-                  '**/ApkLoader*', '**/AndroidPublisherBuilder*']
+                  '**/AndroidPublisherFactory*']
 def debugTree = fileTree(dir: "${buildDir}/classes/kotlin/main", excludes: fileFilter)
 
 jacocoTestReport {

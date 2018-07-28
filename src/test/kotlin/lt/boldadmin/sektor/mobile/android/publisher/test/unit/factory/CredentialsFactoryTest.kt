@@ -31,7 +31,7 @@ class CredentialsFactoryTest {
         doReturn(builderSpy).`when`(builderSpy).setServiceAccountPrivateKeyFromP12File(any())
         doReturn(googleCredentialDummy).`when`(builderSpy).build()
 
-        val edits = CredentialsFactory(builderSpy, propertyLoaderStub).createCredentials()
+        val edits = CredentialsFactory(builderSpy, propertyLoaderStub).create()
 
         assertEquals(googleCredentialDummy, edits)
         verify(propertyLoaderStub, times(2)).load(any())

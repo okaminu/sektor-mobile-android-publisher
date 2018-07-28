@@ -16,7 +16,6 @@ class TrackReleaseFactory(
             .setStatus(completedStatus)
             .setReleaseNotes(listOf(localizedTextFactory.create()))
 
-
     companion object {
         const val completedStatus = "completed"
     }

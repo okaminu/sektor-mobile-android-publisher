@@ -3,11 +3,11 @@ apply from: 'aws-credentials.gradle'
 
 publishing {
     publications {
-        mavenJava(MavenPublication) { publication ->
+        shadow(MavenPublication) { publication ->
             groupId 'lt.boldadmin.sektor'
             artifactId = 'android-publisher'
             version 'release'
-            from components.java
+            project.shadow.component(publication)
 
             repositories {
                 maven {

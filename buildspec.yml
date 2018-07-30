@@ -4,8 +4,3 @@ phases:
   build:
     commands:
       - ./gradlew build publish
-      - java -jar build/libs/sektor-mobile-android-publisher-all.jar
-artifacts:
-  files:
-    - 'build/libs/sektor-mobile-android-publisher-all.jar'
-  discard-paths: yes

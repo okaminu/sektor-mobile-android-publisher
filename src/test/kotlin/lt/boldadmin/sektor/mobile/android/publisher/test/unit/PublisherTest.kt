@@ -19,16 +19,20 @@ class PublisherTest {
     @Mock
     private lateinit var editsServiceSpy: EditsService
 
+    @Mock
+    private lateinit var envVariablesLoaderSpy: EnvVariablesLoader
+
     @Test
     fun `Publishes app to play store`() {
         val appEditStub = mock<AppEdit>()
         doReturn(mock<Properties>()).`when`(propertyLoaderSpy).load(any())
+        doReturn("track").`when`(envVariablesLoaderSpy).get(any())
         doReturn(appEditStub).`when`(editsServiceSpy).createNewEdit(any())
         doReturn(editId).`when`(appEditStub).id
 
-        Publisher(editsServiceSpy, propertyLoaderSpy).publish()
+        Publisher(editsServiceSpy, propertyLoaderSpy, envVariablesLoaderSpy).publish()
 
-        verify(propertyLoaderSpy, times(3)).load(any())
+        verify(propertyLoaderSpy, times(2)).load(any())
         verify(editsServiceSpy).createNewEdit(any())
         verify(editsServiceSpy).uploadApk(eq(editId), any(), any())
         verify(editsServiceSpy).updateTrack(eq(editId), any(), any())

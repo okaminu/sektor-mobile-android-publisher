@@ -3,7 +3,6 @@ task writeDetailsToProperty {
     def writer = new FileWriter(file('src/main/resources/config.properties'))
     try {
         props.setProperty('SERVICE_ACCOUNT_EMAIL', System.getenv("SEKTOR_SERVICE_ACCOUNT_EMAIL"))
-        props.setProperty('TRACK', System.getenv("SEKTOR_ANDROID_TRACK"))
         props.store(writer, null)
         writer.flush()
     } finally {
